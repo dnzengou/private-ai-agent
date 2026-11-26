@@ -189,7 +189,7 @@ jobs:
         with:
           path: android/p2pmobile/build/p2pmobile.aar
           key: p2pmobile-aar-v1-ndk${{ env.NDK_VERSION }}-arm64-amd64-${{ hashFiles('core/services/p2pnet/**', 'core/services/p2ppair/**', 'core/services/p2prelay/relayproto/**', 'pkg/httpclient/**', 'pkg/atomicfile/**', 'pkg/fsperm/**', 'go.mod', 'go.sum', 'android/p2pmobile/**') }}
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           go-version-file: android/p2pmobile/go.mod
