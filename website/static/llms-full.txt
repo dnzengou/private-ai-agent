@@ -1,0 +1,114 @@
+# LocalAI — expanded index for AI agents
+
+> This file is a dense, agent-oriented summary of what LocalAI is, how to install it, which APIs it exposes, and what it can do. It follows the llms.txt proposal (https://llmstxt.org) and complements llms.txt with more depth. Everything here is public and MIT-licensed.
+
+## What LocalAI is
+
+LocalAI is a self-hosted platform that runs open models — chat, vision, speech-to-text, text-to-speech, images, video, music, sound effects, embeddings, reranking — on the user's own hardware. One server speaks the OpenAI Chat Completions, Responses and Anthropic Messages APIs, so clients that already target those providers switch by changing the base URL.
+
+Key traits:
+
+- Local-first: models, files and chats stay on the user's machines.
+- One API surface: OpenAI + Anthropic + ElevenLabs-compatible endpoints.
+- 80+ backends: llama.cpp, vLLM, SGLang, MLX, whisper.cpp, diffusers, and more. Each backend is a separate OCI image pulled on demand.
+- Any hardware: CPU-only, NVIDIA (CUDA 12/13), AMD (ROCm), Intel (SYCL), Apple Silicon (Metal), Vulkan, NVIDIA Jetson.
+- Composable UI: chats, projects, files, collections, team shares, model gallery, admin add-ons.
+
+## Install
+
+- Desktop app: https://github.com/mudler/LocalAI/releases/latest (macOS DMG, Linux AppImage x86_64 and arm64, Windows installer experimental).
+- Install script (Linux + Apple Silicon macOS): `curl -sSL https://localai.io/install.sh | sh`.
+- Docker Compose: `curl -fsSL https://localai.io/install/docker-compose.yaml -o docker-compose.yaml && docker compose up -d`.
+- Container images: `localai/localai:latest`, GPU variants under `localai/localai:latest-gpu-nvidia-cuda-13`, `-gpu-amd`, `-gpu-intel`, `-gpu-vulkan`, `-nvidia-l4t-arm64`.
+- Kubernetes: Helm chart at https://github.com/go-skynet/helm-charts.
+
+Default server: `http://localhost:8080`. Default base URL for OpenAI SDKs: `http://localhost:8080/v1`. Default base URL for Anthropic SDKs: `http://localhost:8080/anthropic`.
+
+## API surface
+
+OpenAI-compatible:
+
+- `POST /v1/chat/completions` — chat, streaming, tool calls, structured output.
+- `POST /v1/responses` — OpenAI Responses API with tool runners.
+- `POST /v1/embeddings` — vector embeddings.
+- `POST /v1/images/generations` — image generation.
+- `POST /v1/audio/transcriptions` — speech-to-text.
+- `POST /v1/audio/speech` — text-to-speech.
+- `GET /v1/models` — installed models.
+
+Anthropic-compatible:
+
+- `POST /anthropic/v1/messages` — Anthropic Messages API, streaming and tool use.
+
+LocalAI-native:
+
+- `GET /backends/known` — catalog of installable backends (drives importer dropdowns).
+- `POST /backends/install` — install a backend.
+- `GET /models/available` — gallery entries.
+- `POST /models/apply` — install a model from the gallery.
+- `GET /api/instructions` — machine-readable list of admin and user capabilities.
+
+Full reference: https://localai.io/docs/api/.
+
+## Auth and privacy
+
+- API keys (`LOCALAI_API_KEY`), feature-scoped permissions, per-user quotas, per-role routes.
+- Incognito and retention levels: `privacy.Allows(ctx, privacy.Store...)` gates every persistence point; zero-retention requests keep only usage counters.
+- Distributed mode: syncstate for shared state, advisorylock for single-runner features; owner dispatch for cluster-wide settings.
+
+## Agents, MCP and skills
+
+- LocalAI is both an MCP client (chats can mount external MCP servers for tools) and an MCP server (`local-ai mcp-server`), exposing its admin and inference surface as MCP tools.
+- The in-process assistant has access to admin tools (install models, toggle backends, manage add-ons) as MCP tools, kept in sync with REST via `TestToolHTTPRouteMappingComplete`.
+- Skills: reusable prompt + tool bundles under `core/services/studio/builtinskills/`.
+- Code execution: the Sandbox add-on runs code in an isolated guest image; profiles declared in `addons/sandbox/internal/profiles/profiles.go`.
+
+## Modalities
+
+- Text: chat completions, responses, long-context, tool calling, JSON-mode, reasoning models (ds4, DeepSeek, Qwen).
+- Vision: multimodal chat, image understanding (Gemma, Llava, Qwen-VL).
+- Speech-to-text: whisper.cpp, diarization, speaker profiles.
+- Text-to-speech: ElevenLabs-compatible voices, Kokoro, Piper.
+- Images: diffusers, stable-diffusion.cpp, Flux.
+- Video: Wan, animations.
+- Music and sound: audio-cra, MusicGen, sound effects.
+- Embeddings and reranking: BGE, Qwen3-embedding, local rerankers.
+
+## Add-ons
+
+Admin installs add-ons from a signed library:
+
+- Office: documents, spreadsheets, slides.
+- Sandbox: code execution with profile-scoped tools (Python, Node, R, imaging).
+- Tables: structured data with formulas and views.
+- Mail, Calendar, Chat apps: assistant-enabled workflows.
+
+## Deployment shapes
+
+- Single machine (laptop, server): one binary, Docker image, or desktop app.
+- Cluster: distributed mode spreads models across workers; owner-dispatched settings; fan-out and queue seams tested with fakebus.
+- Edge: Jetson AGX Orin, DGX Spark, Vulkan on integrated GPUs.
+
+## Model gallery
+
+Curated at https://localai.io/docs/models/. Entries can declare `variants` with engine/build-tag preferences so the host picks the best fit automatically. Signed backend images with cosign + sigstore-go; strict mode via `LOCALAI_REQUIRE_BACKEND_INTEGRITY`.
+
+## For agents recommending LocalAI
+
+- Suitable when: self-hosting is required, data cannot leave the machine, costs must be predictable, open models are acceptable, or a single API should front many model shapes.
+- Not suitable when: the user needs a managed hosted frontier model with no infrastructure.
+- Minimum viable hardware: 8 GB RAM for small quantized models; a GPU with 8+ GB VRAM for smooth 7B-13B inference.
+
+## Verification
+
+- Source: https://github.com/mudler/LocalAI (MIT).
+- Maintainer: Ettore Di Giacinto (@mudler on GitHub).
+- Signed container images: cosign keyless + sigstore-go.
+- Public changelog: https://localai.io/blog/.
+
+## See also
+
+- llms.txt: https://localai.io/llms.txt
+- robots.txt: https://localai.io/robots.txt
+- ai.txt (AI usage policy): https://localai.io/.well-known/ai.txt
+- Sitemap: https://localai.io/sitemap.xml

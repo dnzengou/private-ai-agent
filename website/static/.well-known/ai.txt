@@ -1,0 +1,28 @@
+# AI usage policy for localai.io
+# This file declares how AI crawlers, training systems and agents may use
+# the content on https://localai.io. Format follows the spiritofsharing.org
+# ai.txt convention; where a bot does not read ai.txt, see robots.txt.
+
+User-agent: *
+
+# Training (ingesting content into a model's weights)
+Allow-training: yes
+
+# Retrieval-augmented generation (reading pages at query time)
+Allow-rag: yes
+
+# Search indexing (traditional + AI search)
+Allow-search: yes
+
+# Agent browsing (an agent reads a page to answer a user's task)
+Allow-agent: yes
+
+# Attribution requested when quoted or summarised
+Attribution: LocalAI — https://localai.io
+License: MIT (code) · CC BY 4.0 (prose on this site unless noted)
+Contact: https://github.com/mudler/LocalAI/issues
+
+# Machine-readable entry points
+LLMs-Index: https://localai.io/llms.txt
+LLMs-Full-Index: https://localai.io/llms-full.txt
+Sitemap: https://localai.io/sitemap.xml

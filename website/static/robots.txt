@@ -1,4 +1,65 @@
+# robots.txt for localai.io
+# LocalAI is open-source and public. We welcome traditional crawlers, AI
+# search indexers and agents. Preferences for AI training, RAG, agent
+# browsing and attribution live in /.well-known/ai.txt and /llms.txt.
+
 User-agent: *
+Allow: /
+
+# Explicit allow for AI search and agent crawlers. Listed so operators who
+# key off a named user-agent see the policy, not so access is restricted.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: YouBot
 Allow: /
 
 Sitemap: https://localai.io/sitemap.xml
