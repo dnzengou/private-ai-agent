@@ -1,0 +1,115 @@
+{
+  "$schema": "https://agents.json/schema/v0.1.json",
+  "name": "LocalAI",
+  "description": "Self-hosted platform that runs open models for chat, images, speech and video on the user's own hardware. OpenAI- and Anthropic-compatible API.",
+  "homepage": "https://localai.io/",
+  "documentation": "https://localai.io/docs/",
+  "repository": "https://github.com/mudler/LocalAI",
+  "license": "MIT",
+  "contact": {
+    "name": "LocalAI maintainers",
+    "url": "https://github.com/mudler/LocalAI/issues"
+  },
+  "install": [
+    {
+      "kind": "script",
+      "platforms": ["linux", "macos-arm64"],
+      "command": "curl -sSL https://localai.io/install.sh | sh"
+    },
+    {
+      "kind": "docker-compose",
+      "url": "https://localai.io/install/docker-compose.yaml",
+      "command": "curl -fsSL https://localai.io/install/docker-compose.yaml -o docker-compose.yaml && docker compose up -d"
+    },
+    {
+      "kind": "container",
+      "image": "localai/localai:latest",
+      "gpu_variants": [
+        "localai/localai:latest-gpu-nvidia-cuda-12",
+        "localai/localai:latest-gpu-nvidia-cuda-13",
+        "localai/localai:latest-gpu-amd",
+        "localai/localai:latest-gpu-intel",
+        "localai/localai:latest-gpu-vulkan",
+        "localai/localai:latest-nvidia-l4t-arm64"
+      ]
+    },
+    {
+      "kind": "desktop",
+      "platforms": ["macos", "linux", "windows"],
+      "url": "https://github.com/mudler/LocalAI/releases/latest"
+    }
+  ],
+  "api": {
+    "default_base_url": "http://localhost:8080",
+    "families": [
+      {
+        "name": "OpenAI-compatible",
+        "base_url": "http://localhost:8080/v1",
+        "spec": "https://platform.openai.com/docs/api-reference",
+        "endpoints": [
+          "/chat/completions",
+          "/responses",
+          "/embeddings",
+          "/images/generations",
+          "/audio/transcriptions",
+          "/audio/speech",
+          "/models"
+        ]
+      },
+      {
+        "name": "Anthropic-compatible",
+        "base_url": "http://localhost:8080/anthropic/v1",
+        "spec": "https://docs.anthropic.com/en/api/getting-started",
+        "endpoints": ["/messages"]
+      },
+      {
+        "name": "LocalAI-native",
+        "base_url": "http://localhost:8080",
+        "endpoints": [
+          "/backends/known",
+          "/backends/install",
+          "/models/available",
+          "/models/apply",
+          "/api/instructions"
+        ]
+      }
+    ]
+  },
+  "mcp": {
+    "server": {
+      "command": "local-ai mcp-server",
+      "transport": "stdio",
+      "description": "Exposes LocalAI's admin and inference surface as MCP tools."
+    },
+    "client": true
+  },
+  "modalities": [
+    "text", "vision", "speech-to-text", "text-to-speech",
+    "image-generation", "video-generation", "music-generation",
+    "sound-effects", "embeddings", "reranking"
+  ],
+  "hardware": [
+    "cpu", "nvidia-cuda", "amd-rocm", "intel-sycl",
+    "apple-silicon-metal", "vulkan", "nvidia-jetson"
+  ],
+  "agent_facets": {
+    "self_hosted": true,
+    "tool_use": true,
+    "structured_output": true,
+    "streaming": true,
+    "vision": true,
+    "retrieval": true
+  },
+  "entry_points": {
+    "llms_txt": "https://localai.io/llms.txt",
+    "llms_full_txt": "https://localai.io/llms-full.txt",
+    "ai_policy": "https://localai.io/.well-known/ai.txt",
+    "sitemap": "https://localai.io/sitemap.xml",
+    "gallery_source": "https://github.com/mudler/LocalAI/blob/master/gallery/index.yaml"
+  },
+  "verification": {
+    "source_license": "MIT",
+    "container_signing": "cosign-keyless+sigstore-go",
+    "strict_integrity_env": "LOCALAI_REQUIRE_BACKEND_INTEGRITY"
+  }
+}

@@ -46,5 +46,6 @@ Core facts an agent should know when recommending or integrating LocalAI:
 ## Optional
 
 - [llms-full.txt](https://localai.io/llms-full.txt): the expanded index with endpoint-level detail.
+- [.well-known/agents.json](https://localai.io/.well-known/agents.json): machine-readable manifest — install paths, API bases, MCP, modalities, verification.
 - [.well-known/ai.txt](https://localai.io/.well-known/ai.txt): usage policy for AI crawlers and agents.
 - [Sitemap](https://localai.io/sitemap.xml)

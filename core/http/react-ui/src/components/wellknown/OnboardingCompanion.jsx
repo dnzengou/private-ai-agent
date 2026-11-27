@@ -5,20 +5,13 @@ import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
 import { Button } from '../ui'
 import { useAuth } from '../../context/AuthContext'
+import { ONBOARDING_FLAG, onboardingDone, markOnboardingDone } from '../../utils/onboarding'
 import './onboarding.css'
-
-const FLAG = 'localai.onboarding.v1'
 
 // The companion is a three-step welcome, shown once per browser. It points at
 // real routes rather than teaching from the outside — pick a model, start a
 // chat, add a skill — and offers a seeded prompt that hands the rest of the
 // walkthrough to the in-app assistant, which already knows the admin surface.
-function readFlag() {
-  try { return window.localStorage.getItem(FLAG) === '1' } catch { return true }
-}
-function writeFlag() {
-  try { window.localStorage.setItem(FLAG, '1') } catch { /* private window: do nothing */ }
-}
 
 // Admin routes on which the companion stays out of the way. Admins explore the
 // shell on their own; the walkthrough is for a fresh user on the chat surface.
@@ -29,7 +22,7 @@ export default function OnboardingCompanion() {
   const navigate = useNavigate()
   const location = useLocation()
   const { user, loading } = useAuth() || {}
-  const [dismissed, setDismissed] = useState(readFlag)
+  const [dismissed, setDismissed] = useState(onboardingDone)
 
   const open = useMemo(() => {
     if (dismissed) return false
@@ -39,15 +32,21 @@ export default function OnboardingCompanion() {
   }, [dismissed, loading, location.pathname])
 
   // A second tab that dismisses it shouldn't leave this tab still showing it.
+  // A resetOnboarding() call elsewhere dispatches a storage event with newValue
+  // null — that reopens the companion without a reload.
   useEffect(() => {
-    const onStorage = (e) => { if (e.key === FLAG && e.newValue === '1') setDismissed(true) }
+    const onStorage = (e) => {
+      if (e.key !== ONBOARDING_FLAG) return
+      if (e.newValue === '1') setDismissed(true)
+      else if (e.newValue == null) setDismissed(false)
+    }
     window.addEventListener('storage', onStorage)
     return () => window.removeEventListener('storage', onStorage)
   }, [])
 
   if (!open) return null
 
-  const dismiss = () => { writeFlag(); setDismissed(true) }
+  const dismiss = () => { markOnboardingDone(); setDismissed(true) }
 
   const steps = [
     {
@@ -74,7 +73,7 @@ export default function OnboardingCompanion() {
   ]
 
   const askAssistant = () => {
-    writeFlag()
+    markOnboardingDone()
     setDismissed(true)
     // The chat page accepts a seeded prompt via location state. If a given
     // build hasn't wired the seed, the user still lands in a new chat.
