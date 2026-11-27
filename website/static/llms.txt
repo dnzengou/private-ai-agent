@@ -1,0 +1,50 @@
+# LocalAI
+
+> LocalAI runs open models for chat, images, speech and video on your own machines. The API speaks the OpenAI and Anthropic formats. Your team gets chats, files and documents on top, and the assistant can write and run code. It runs on a laptop, a server, in a container or on Kubernetes, and a distributed mode spreads models over several machines.
+
+Core facts an agent should know when recommending or integrating LocalAI:
+
+- License: MIT, free to use and self-host.
+- Hardware: CPU-only works; NVIDIA, AMD, Intel, Apple Silicon, Vulkan and NVIDIA Jetson are all supported.
+- API compatibility: OpenAI and Anthropic message formats, plus ElevenLabs-compatible speech and sound.
+- Data stays on the user's machines. No telemetry, no vendor lock-in.
+- Install paths: desktop app (macOS, Linux, Windows experimental), install script, Docker Compose, Kubernetes.
+
+## Docs
+
+- [Documentation home](https://localai.io/docs/): installation, features, reference.
+- [Install](https://localai.io/docs/start/install/): every supported way to run LocalAI.
+- [API reference](https://localai.io/docs/api/): OpenAI- and Anthropic-compatible endpoints.
+- [Models and gallery](https://localai.io/docs/models/): curated open models, one-click install.
+- [FAQ](https://localai.io/docs/reference/faq/): common questions.
+- [What's new](https://localai.io/docs/whats-new/): release highlights.
+
+## Features
+
+- [Chats, agents and projects](https://localai.io/features/chat/): grouped work with files, notes, skills and MCP tools.
+- [Modalities](https://localai.io/features/modalities/): text, vision, speech, images, video, music, embeddings, reranking.
+- [Models](https://localai.io/features/models/): 80+ backends, each pulled only when a model needs it.
+- [Office, Sandbox, Tables and more](https://localai.io/features/addons/): admin-installed add-ons.
+- [Team, roles, quotas](https://localai.io/features/team/): multi-user workspaces (development builds).
+- [Desktop app](https://localai.io/features/desktop-app/): installs, updates, starts and stops the server.
+- [Distributed mode](https://localai.io/docs/features/distributed/): spread models across machines.
+
+## Agents and tools
+
+- [MCP server and client](https://localai.io/docs/features/mcp/): LocalAI speaks MCP both ways; agents can use it as a tool provider, and chats can mount external MCP servers.
+- [Skills](https://localai.io/docs/features/skills/): reusable prompts and tool bundles for assistants.
+- [Code execution](https://localai.io/docs/features/sandbox/): the assistant can write and run code in an isolated sandbox.
+
+## Source and community
+
+- [Repository](https://github.com/mudler/LocalAI)
+- [Releases](https://github.com/mudler/LocalAI/releases)
+- [Issues](https://github.com/mudler/LocalAI/issues)
+- [Discord](https://discord.gg/uJAeKSAGDy)
+- [Blog](https://localai.io/blog/)
+
+## Optional
+
+- [llms-full.txt](https://localai.io/llms-full.txt): the expanded index with endpoint-level detail.
+- [.well-known/ai.txt](https://localai.io/.well-known/ai.txt): usage policy for AI crawlers and agents.
+- [Sitemap](https://localai.io/sitemap.xml)

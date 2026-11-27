@@ -70,6 +70,52 @@
   {{ range .Params.extracss }}<link rel="stylesheet" href="{{ printf "css/%s" . | relURL }}">
   {{ end }}
   {{ if .IsHome }}
-  <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "SoftwareApplication" "name" "LocalAI" "url" $site.Home.Permalink "description" $site.Params.description "applicationCategory" "DeveloperApplication" "operatingSystem" "Linux, macOS, Docker, Kubernetes" "license" "https://opensource.org/license/mit" "isAccessibleForFree" true "image" ("img/brand/og-card-1200x630.jpg" | absURL) "downloadUrl" (printf "%s/releases" $site.Params.github) "codeRepository" $site.Params.github "author" (dict "@type" "Person" "name" $site.Params.author) "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "USD") | jsonify | safeJS }}</script>
+  {{- $sameAs := slice $site.Params.github $site.Params.discord $site.Params.x $site.Params.huggingface -}}
+  {{- $org := dict
+      "@context" "https://schema.org"
+      "@type" "Organization"
+      "name" "LocalAI"
+      "url" $site.Home.Permalink
+      "logo" ("img/brand/favicon.svg" | absURL)
+      "sameAs" $sameAs
+      "founder" (dict "@type" "Person" "name" $site.Params.author "url" "https://github.com/mudler")
+  -}}
+  {{- $app := dict
+      "@context" "https://schema.org"
+      "@type" "SoftwareApplication"
+      "name" "LocalAI"
+      "url" $site.Home.Permalink
+      "description" $site.Params.description
+      "applicationCategory" "DeveloperApplication"
+      "operatingSystem" "Linux, macOS, Windows, Docker, Kubernetes"
+      "license" "https://opensource.org/license/mit"
+      "isAccessibleForFree" true
+      "image" ("img/brand/og-card-1200x630.jpg" | absURL)
+      "downloadUrl" (printf "%s/releases" $site.Params.github)
+      "codeRepository" $site.Params.github
+      "sameAs" $sameAs
+      "author" (dict "@type" "Person" "name" $site.Params.author)
+      "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "USD")
+      "featureList" (slice
+        "OpenAI- and Anthropic-compatible API"
+        "Chats, agents, projects and MCP tools"
+        "Text, vision, speech, image, video, music, embedding and reranking models"
+        "Runs on CPU, NVIDIA, AMD, Intel, Apple Silicon, Vulkan or Jetson"
+        "Self-hosted — data stays on the user's machines")
+  -}}
+  {{- $website := dict
+      "@context" "https://schema.org"
+      "@type" "WebSite"
+      "name" "LocalAI"
+      "url" $site.Home.Permalink
+      "publisher" (dict "@type" "Organization" "name" "LocalAI" "url" $site.Home.Permalink)
+  -}}
+  <script type="application/ld+json">{{ $org | jsonify | safeJS }}</script>
+  <script type="application/ld+json">{{ $app | jsonify | safeJS }}</script>
+  <script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
   {{ end }}
+  {{- /* Agent-oriented discovery endpoints. llms.txt follows the proposal at
+         https://llmstxt.org; ai.txt declares the AI usage policy. */ -}}
+  <link rel="alternate" type="text/plain" title="LocalAI (llms.txt)" href="{{ "llms.txt" | absURL }}">
+  <link rel="alternate" type="text/plain" title="LocalAI (llms-full.txt)" href="{{ "llms-full.txt" | absURL }}">
 </head>
