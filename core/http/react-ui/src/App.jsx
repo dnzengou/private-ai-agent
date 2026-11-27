@@ -14,6 +14,8 @@ import Icon from './components/Icon'
 // eslint-disable-next-line no-unused-vars
 import AppearanceSync from './components/wellknown/AppearanceSync'
 import SoundSync from './components/wellknown/SoundSync'
+// eslint-disable-next-line no-unused-vars
+import OnboardingCompanion from './components/wellknown/OnboardingCompanion'
 import { displayVersion } from './utils/version'
 import { apiUrl } from './utils/basePath'
 import { InboxProvider } from './contexts/InboxContext'
@@ -137,6 +139,7 @@ export default function App() {
       <div className={layoutClasses}>
         <AppearanceSync />
         <SoundSync />
+        <OnboardingCompanion />
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} features={features} />
         <main className="main-content" {...(sidebarOpen ? { 'aria-hidden': 'true', inert: '' } : {})}>
           {/* Mobile header — primary actions reachable without opening the

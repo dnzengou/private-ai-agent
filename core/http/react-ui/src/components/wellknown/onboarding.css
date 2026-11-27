@@ -1,0 +1,51 @@
+/* OnboardingCompanion — a once-per-browser welcome dialog.
+   The dialog chrome comes from Dialog.jsx; this file styles only the body. */
+
+.lai-onb { max-width: 560px; }
+.lai-onb__body { padding-top: 0; }
+
+.lai-onb__head { padding: 0 0 .5rem; }
+.lai-onb__hello { margin: 0 0 .25rem; color: var(--dk-muted, #888); font-size: .85rem; letter-spacing: .02em; }
+.lai-onb__title { margin: 0 0 .5rem; font-size: 1.35rem; line-height: 1.2; }
+.lai-onb__lead { margin: 0; color: var(--dk-text-muted, inherit); line-height: 1.5; }
+
+.lai-onb__steps { list-style: none; margin: 1.1rem 0 .4rem; padding: 0; display: grid; gap: .55rem; }
+.lai-onb__step {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: start;
+  gap: .9rem;
+  padding: .75rem .85rem;
+  border-radius: 10px;
+  background: var(--dk-surface-raised, rgba(255, 244, 220, 0.04));
+  border: 1px solid var(--dk-border, rgba(127, 127, 127, 0.14));
+}
+.lai-onb__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--dk-accent-wash, rgba(90, 160, 255, .12));
+  color: var(--dk-accent-text, inherit);
+  font-weight: 600;
+}
+.lai-onb__text { min-width: 0; }
+.lai-onb__step-title { margin: 0 0 .15rem; font-size: 1rem; line-height: 1.2; }
+.lai-onb__step-body { margin: 0; color: var(--dk-text-muted, inherit); font-size: .92rem; line-height: 1.4; }
+
+.lai-onb__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--dk-border, rgba(127, 127, 127, 0.14));
+}
+
+@media (max-width: 520px) {
+  .lai-onb__step { grid-template-columns: 1.6rem 1fr; }
+  .lai-onb__step > :last-child { grid-column: 1 / -1; justify-self: end; }
+  .lai-onb__foot { flex-direction: column-reverse; align-items: stretch; }
+}
