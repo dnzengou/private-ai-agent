@@ -133,8 +133,9 @@ require (
 	github.com/sorairolake/lzip-go v0.3.8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/tidwall/btree v1.8.1 // indirect
-	go.etcd.io/bbolt v1.4.0 // indirect
+	go.etcd.io/bbolt v1.4.3 // indirect
 	go4.org v0.0.0-20230225012048-214862532bf5 // indirect
+	k8s.io/klog/v2 v2.130.1 // indirect
 	lukechampine.com/uint128 v1.2.0 // indirect
 	modernc.org/cc/v3 v3.40.0 // indirect
 	modernc.org/ccgo/v3 v3.16.13 // indirect
@@ -215,7 +216,7 @@ require (
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.4.0 // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
-	github.com/google/certificate-transparency-go v1.3.2
+	github.com/google/certificate-transparency-go v1.4.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0 // indirect
 	github.com/hhrutter/tiff v1.0.6 // indirect
 	github.com/in-toto/attestation v1.1.2 // indirect
@@ -226,7 +227,7 @@ require (
 	github.com/jolestar/go-commons-pool/v2 v2.1.2 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-sqlite3 v1.14.32
-	github.com/moby/moby/api v1.54.2 // indirect
+	github.com/moby/moby/api v1.54.2
 	github.com/moby/moby/client v0.4.1 // indirect
 	github.com/msuozzo/bonsai v0.4.0 // indirect
 	github.com/msuozzo/bonsai/bonsai-bash v0.4.0 // indirect
