@@ -69,7 +69,7 @@ jobs:
         # toolchains before Go is installed.
         run: sh scripts/ci/free-runner-disk.sh
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: 1.25
       # A PR builds only the host target. The three-platform cross-compile
@@ -94,7 +94,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
       # protogen-go downloads protoc and the Go plugins by itself. The React
@@ -128,7 +128,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: 1.27
       - name: Add Git usr/bin to PATH

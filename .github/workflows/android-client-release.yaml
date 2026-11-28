@@ -115,7 +115,7 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version-file: android/p2pmobile/go.mod
           cache-dependency-path: |
