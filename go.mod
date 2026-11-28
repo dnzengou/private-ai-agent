@@ -226,7 +226,7 @@ require (
 	github.com/jolestar/go-commons-pool/v2 v2.1.2 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-sqlite3 v1.14.32
-	github.com/moby/moby/api v1.54.2 // indirect
+	github.com/moby/moby/api v1.54.2
 	github.com/moby/moby/client v0.4.1 // indirect
 	github.com/msuozzo/bonsai v0.4.0 // indirect
 	github.com/msuozzo/bonsai/bonsai-bash v0.4.0 // indirect
@@ -512,7 +512,7 @@ require (
 	golang.org/x/crypto v0.57.0
 	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f // indirect
 	golang.org/x/mod v0.41.0 // indirect
-	golang.org/x/sync v0.23.0
+	golang.org/x/sync v0.25.0
 	golang.org/x/sys v0.48.0
 	golang.org/x/term v0.46.0
 	golang.org/x/text v0.42.0
