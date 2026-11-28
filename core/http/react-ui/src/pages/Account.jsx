@@ -13,6 +13,7 @@ import DefaultsTab from '../components/wellknown/DefaultsTab'
 import SoundTab from '../components/wellknown/SoundTab'
 import MemoryTab from '../components/MemoryTab'
 import MemorySettings from '../components/MemorySettings'
+import { resetOnboarding } from '../utils/onboarding'
 import './access.css'
 
 const TABS = [
@@ -65,7 +66,9 @@ function ProfileTab({ addToast }) {
   }
 
   const shown = avatarUrl.trim() || user?.avatarUrl
+  const replayTour = () => { resetOnboarding(); addToast(t('account.profile.tourReplay', { defaultValue: 'Welcome tour will reopen.' }), 'success') }
   return (
+    <>
     <form className="ac-form" onSubmit={handleSave} data-testid="account-profile">
       <div className="dk-field">
         <label className="dk-label" htmlFor="ac-name">{t('account.profile.displayName')}</label>
@@ -94,6 +97,12 @@ function ProfileTab({ addToast }) {
         </Button>
       </div>
     </form>
+    <div className="ac-actions" data-testid="account-tour">
+      <Button type="button" variant="ghost" size="sm" icon="sparkles" onClick={replayTour}>
+        {t('account.profile.tourReplayAction', { defaultValue: 'Replay welcome tour' })}
+      </Button>
+    </div>
+    </>
   )
 }
 

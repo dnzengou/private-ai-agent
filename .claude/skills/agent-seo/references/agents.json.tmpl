@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agents.json/schema/v0.1.json",
+  "name": "{{NAME}}",
+  "description": "{{ONE_SENTENCE_DESCRIPTION}}",
+  "homepage": "{{BASE_URL}}/",
+  "documentation": "{{DOCS_URL}}",
+  "repository": "{{REPO_URL}}",
+  "license": "{{LICENSE}}",
+  "contact": { "name": "{{NAME}} team", "url": "{{ISSUES_URL}}" },
+  "install": [
+    { "kind": "container", "image": "{{IMAGE}}" }
+  ],
+  "api": {
+    "default_base_url": "{{API_BASE_URL}}",
+    "families": [
+      {
+        "name": "primary",
+        "base_url": "{{API_BASE_URL}}",
+        "spec": "{{API_SPEC_URL}}",
+        "endpoints": ["{{ENDPOINT_A}}", "{{ENDPOINT_B}}"]
+      }
+    ]
+  },
+  "modalities": ["text"],
+  "agent_facets": {
+    "self_hosted": false,
+    "tool_use": false,
+    "streaming": false
+  },
+  "entry_points": {
+    "llms_txt": "{{BASE_URL}}/llms.txt",
+    "llms_full_txt": "{{BASE_URL}}/llms-full.txt",
+    "ai_policy": "{{BASE_URL}}/.well-known/ai.txt",
+    "sitemap": "{{BASE_URL}}/sitemap.xml"
+  }
+}
